@@ -19,25 +19,63 @@ namespace WebApp.Pages.EventInfos
             _context = context;
         }
 
-      public EventInfo EventInfo { get; set; } = default!; 
+        public EventInfo? EventInfo { get; set; } = default!;
+        public List<Participator?> Participators { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.EventInfos == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var eventinfo = await _context.EventInfos.FirstOrDefaultAsync(m => m.Id == id);
-            if (eventinfo == null)
+            EventInfo = await _context.EventInfos.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (EventInfo == null)
             {
                 return NotFound();
             }
-            else 
-            {
-                EventInfo = eventinfo;
-            }
+
+            Participators = await _context.EventParticipators
+                .Include(ep => ep.Participator)
+                .ThenInclude(p => p!.Company)
+                .Include(ep => ep.Participator)
+                .ThenInclude(p => p!.Person)
+                .Where(ep => ep.EventInfoId == id)
+                .Select(ep => ep.Participator)
+                .ToListAsync();
+            
+            Console.WriteLine("lengtgh: " + Participators.Count);
+
             return Page();
+        }
+        
+        public async Task<IActionResult> OnPostDeleteAsync(int participatorId, int eventInfoId)
+        {
+            var participator = await _context.Participators
+                .Include(p => p.Person)
+                .Include(p => p.Company)
+                .FirstOrDefaultAsync(p => p.Id == participatorId);
+
+            if (participator == null)
+            {
+                return NotFound();
+            }
+            
+            if (participator.Person != null)
+            {
+                _context.Persons.Remove(participator.Person);
+            }
+
+            if (participator.Company != null)
+            {
+                _context.Companies.Remove(participator.Company);
+            }
+
+            _context.Participators.Remove(participator);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/EventInfos/Details", new { id = eventInfoId });
         }
     }
 }
