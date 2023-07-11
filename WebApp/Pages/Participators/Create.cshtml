@@ -1,4 +1,5 @@
 @page
+@using Domain
 @model WebApp.Pages.Participators.CreateModel
 
 @{
@@ -8,26 +9,88 @@
 <h1>Create</h1>
 
 <h4>Participator</h4>
-<hr />
+<hr/>
+
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <div class="form-check">
+            <input class="form-check-input" checked type="radio" name="flexRadioDefault" id="flexRadioDefault1" onchange="@{ Model.IsPerson = !Model.IsPerson; }" value="Person" onclick="toggleSection('Person')">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Eraisik
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="@{ Model.IsPerson = !Model.IsPerson; }" value="Company" onclick="toggleSection('Company')">
+            <label class="form-check-label" for="flexRadioDefault2">
+                Ettevõtte
+            </label>
+        </div>
+        <form method="post" id="personSection" style="display: block;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <h1>Person</h1>
             <div class="form-group">
-                <label asp-for="Participator.PersonId" class="control-label"></label>
-                <select asp-for="Participator.PersonId" class ="form-control" asp-items="ViewBag.PersonId"></select>
+                <label asp-for="Person.PersonFirstName" class="control-label">Eesnimi</label>
+                <input asp-for="Person.PersonFirstName" class="form-control"/>
+                <span asp-validation-for="Person.PersonFirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Participator.CompanyId" class="control-label"></label>
-                <select asp-for="Participator.CompanyId" class ="form-control" asp-items="ViewBag.CompanyId"></select>
+                <label asp-for="Person.PersonLastName" class="control-label">Perekonnanimi</label>
+                <input asp-for="Person.PersonLastName" class="form-control"/>
+                <span asp-validation-for="Person.PersonLastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Participator.PaymentType" class="control-label"></label>
-                <input asp-for="Participator.PaymentType" class="form-control" />
-                <span asp-validation-for="Participator.PaymentType" class="text-danger"></span>
+                <label asp-for="Person.PersonIdCode" class="control-label">ID kood</label>
+                <input asp-for="Person.PersonIdCode" class="form-control" type="number"/>
+                <span asp-validation-for="Person.PersonIdCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="PaymentType" class="control-label">Maksmisviis</label>
+                <select asp-for="PaymentType" asp-items="Html.GetEnumSelectList<PaymentType>()" class="form-select"></select>
+                <span asp-validation-for="PaymentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.PersonDescription" class="control-label">Lisa info</label>
+                <input asp-for="Person.PersonDescription" class="form-control"/>
+                <span asp-validation-for="Person.PersonDescription" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+        <form method="post" id="companySection" style="display: none;">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h1>Company</h1>
+            <div class="form-group">
+                <label asp-for="Company.CompanyName" class="control-label">Nimi</label>
+                <input asp-for="Company.CompanyName" class="form-control" data-val-required="Vajalik väli."/>
+                <span asp-validation-for="Company.CompanyName" class="text-danger" data-valmsg-for="Company.CompanyName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company.CompanyRegistryCode" class="control-label">Registrikood</label>
+                <input asp-for="Company.CompanyRegistryCode" class="form-control" data-val-required="Vajalik väli."/>
+                <span asp-validation-for="Company.CompanyRegistryCode" class="text-danger" data-valmsg-for="Company.CompanyRegistryCode"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company.CompanyMemberCount" class="control-label">Osavõtjate arv</label>
+                <input asp-for="Company.CompanyMemberCount" class="form-control" data-val-required="Vajalik väli."/>
+                <span asp-validation-for="Company.CompanyMemberCount" class="text-danger" data-valmsg-for="Company.CompanyMemberCount"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentType" class="control-label">Maksmisviis</label>
+                <select asp-for="PaymentType" asp-items="Html.GetEnumSelectList<PaymentType>()" class="form-select"></select>
+                <span asp-validation-for="PaymentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company.CompanyDescription" class="control-label">Lisa info</label>
+                <input type="number" asp-for="Company.CompanyDescription" class="form-control"/>
+                <span asp-validation-for="Company.CompanyDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -38,5 +101,16 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        function toggleSection(section) {
+            if (section === 'Person') {
+                document.getElementById('personSection').style.display = 'block';
+                document.getElementById('companySection').style.display = 'none';
+            } else if (section === 'Company') {
+                document.getElementById('personSection').style.display = 'none';
+                document.getElementById('companySection').style.display = 'block';
+            }
+        }
+    </script>
 }
