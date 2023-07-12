@@ -1,18 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DAL;
+using Domain;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
+    private readonly DAL.AppDbContext _context;
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public IndexModel(AppDbContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
-    public void OnGet()
+    public IList<EventInfo> EventInfos { get;set; } = default!;
+    public IList<EventInfo> FutureEvents { get;set; } = default!;
+    public IList<EventInfo> PastEvents { get;set; } = default!;
+
+    public async Task OnGetAsync()
     {
+        if (_context.EventInfos != null)
+        {
+            EventInfos =  await _context.EventInfos.ToListAsync();
+
+            var currentDate = DateTime.Now;
+            
+            PastEvents = EventInfos
+                .Where(e => e.EventDateTime < currentDate)
+                .OrderBy(e => e.EventDateTime)
+                .ToList();
+
+            FutureEvents = EventInfos
+                .Where(e => e.EventDateTime >= currentDate)
+                .OrderBy(e => e.EventDateTime)
+                .ToList();
+        }
     }
 }

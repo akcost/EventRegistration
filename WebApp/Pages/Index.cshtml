@@ -4,7 +4,95 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid" style="height: calc(100vh - 150px)">
+    <div class="row h-50">
+        <div class="col bg-primary mb-3" style=" padding-left: 0; padding-right: 0; display: flex; align-items: center; justify-content: center;">
+            <!-- Content for the first square -->
+            <h3 class="px-5 text-white fw-normal">
+                Sed nec elit vestibulum, tincidunt orci et, sagittis
+                ex. Vestibulum rutrum neque suscipit ante mattis maximus. Nulla non sapien viverra,
+                lobortis lorem non, accumsan metus.
+            </h3>
+        </div>
+        <div class="col bg-secondary mb-3" style=" padding-left: 0; padding-right: 0; display: flex; align-items: center; justify-content: center;">
+            <!-- Content for the second square -->
+            <img class="h-100 w-100" alt="My image" src="images/pilt.jpg"/>
+
+        </div>
+    </div>
+
+    <div class="row h-50">
+        <div class="col bg-white mt-3 me-3 d-flex flex-column justify-content-between">
+            <!-- Content for the third square -->
+            <div class="row">
+                <h3 class="bg-primary text-white p-4 text-center fw-light">Tulevased üritused</h3>
+                <div class="">
+                    <dd class="col-sm-12">
+                        <br/>
+                        <div class="participators">
+                            @foreach (var eventInfo in Model.FutureEvents)
+                            {
+                                <div class="row participator mb-2">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col-sm-6 participator-name">
+                                                @eventInfo.EventName
+                                            </div>
+                                            <div class="col-sm-3  participator-code">
+                                                @eventInfo.EventDateTime.Value.ToShortDateString()
+                                            </div>
+                                            <div class="col-sm-3  participator-code">
+                                                <a href="/EventInfos/Details?id=@eventInfo.Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
+                                                <a href="/EventInfos/Delete?id=@eventInfo.Id" class="text-black-50 text-decoration-none">
+                                                    <img width="24" alt="icon img" src="images/remove.svg"/>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </dd>
+                </div>
+            </div>
+            <div class="d-flex p-2 pb-3">
+                <a href="/EventInfos/Create" class="fw-bold btn btn-link me-4 text-black-50 text-decoration-none">LISA ÜRITUS</a>
+
+            </div>
+        </div>
+
+        <div class="col bg-white mt-3 ms-3 ">
+            <!-- Content for the third square -->
+            <div class="row">
+                            <h3 class="bg-primary fw-light text-white p-4 text-center">Toimunud üritused</h3>
+                            <div class="">
+                                <dd class="col-sm-12">
+                                    <br/>
+                                    <div class="participators">
+                                        @foreach (var eventInfo in Model.PastEvents)
+                                        {
+                                            <div class="row participator mb-2">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 participator-name">
+                                                            @eventInfo.EventName
+                                                        </div>
+                                                        <div class="col-sm-3  participator-code">
+                                                            @eventInfo.EventDateTime.Value.ToShortDateString()
+                                                        </div>
+                                                        <div class="col-sm-3  participator-code">
+                                                            <a href="/EventInfos/Details?id=@eventInfo.Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </dd>
+                            </div>
+                        </div>
+        </div>
+    </div>
+
 </div>

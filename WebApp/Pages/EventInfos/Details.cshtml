@@ -16,10 +16,11 @@
 
 
     <div class="col-md-9 p-0" style="height: 100px; max-width: max-content; overflow: hidden;">
-        <img src="https://cdn.wallpapersafari.com/36/32/YpBq6m.jpg" alt="no img found">
+        <img src="https://cdn.wallpapersafari.com/36/32/YpBq6m.jpg" alt="no img found"/>
     </div>
 
 </div>
+
 
 <div class="bg-white">
 <br/>
@@ -69,7 +70,7 @@
                                 <div class="col participator-name">
                                     @if (participator!.Person != null)
                                     {
-                                        @participator.Person.PersonFirstName
+                                        @(participator.Person.PersonFirstName + " " + participator.Person.PersonLastName)
                                     }
                                     else if (participator.Company != null)
                                     {
@@ -93,7 +94,7 @@
                                 <form class="align-items-start" method="post" asp-page-handler="Delete"
                                       asp-route-eventInfoId="@Model.EventInfo!.Id"
                                       asp-route-participatorId="@participator.Id">
-                                    <a href="/Participators/Edit?id=@participator.Id" class=" btn btn-link me-4 text-black-50 text-decoration-none">VAATA</a>
+                                    <a href="/Participators/Edit?id=@participator.Id&eventInfoId=@Model.EventInfo.Id" class=" btn btn-link me-4 text-black-50 text-decoration-none">VAATA</a>
                                     <button type="submit" class="btn btn-link text-black-50 text-decoration-none">KUSTUTA</button>
                                 </form>
                             </div>
