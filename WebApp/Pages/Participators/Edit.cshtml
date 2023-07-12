@@ -1,45 +1,172 @@
 @page
+@using Domain
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model WebApp.Pages.Participators.EditModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="bg-white">
+    <div class="row" style="margin-right: 0; margin-left: 0;">
 
-<h4>Participator</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Participator.Id" />
-            <div class="form-group">
-                <label asp-for="Participator.PersonId" class="control-label"></label>
-                <select asp-for="Participator.PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>
-                <span asp-validation-for="Participator.PersonId" class="text-danger"></span>
+        <div class="col-md-3 bg-primary text-white d-flex align-items-center justify-content-center">
+            <h1 class="text-center">Osavõtja info</h1>
+        </div>
+
+
+        <div class="col-md-9 p-0" style="height: 100px; max-width: max-content; overflow: hidden;">
+            <img src="https://cdn.wallpapersafari.com/36/32/YpBq6m.jpg" alt="no img found">
+        </div>
+
+    </div>
+
+    <div class="w-50 align-content-center mx-auto">
+        <br/>
+        <br/>
+        <h3 class="text-primary">Osavõtja info</h3>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col">
+                @{
+                    if (Model.Participator.Company == null)
+                    {
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <input type="hidden" asp-for="Participator.Person!.Id" class="form-control">
+                            <input type="hidden" asp-for="Participator.PersonId" class="form-control">
+                            <input type="hidden" asp-for="Participator.Id" class="form-control">
+                            <input type="hidden" name="eventId" value="@Model.EventInfoId"/>
+
+
+                            <div class="form-group row">
+                                <label asp-for="Participator.Person!.PersonFirstName" class="col-sm-3 col-form-label">Eesnimi:</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Participator.Person!.PersonFirstName" class="form-control">
+                                    <span asp-validation-for="Participator.Person!.PersonFirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-group row">
+                                <label asp-for="Participator.Person!.PersonLastName" class="col-sm-3 col-form-label">Perekonnanimi:</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Participator.Person!.PersonLastName" class="form-control">
+                                    <span asp-validation-for="Participator.Person!.PersonLastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-group row">
+                                <label asp-for="Participator.Person!.PersonIdCode" class="col-sm-3 col-form-label">ID kood:</label>
+                                <div class="col-sm-9">
+                                    <input type="number" asp-for="Participator.Person!.PersonIdCode" class="form-control">
+                                    <span asp-validation-for="Participator.Person!.PersonIdCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <div class="form-group row">
+                                <label asp-for="Participator.PaymentType" class="col-sm-3 control-label">Maksmisviis:</label>
+                                <div class="col-sm-9">
+
+                                    <select asp-for="Participator.PaymentType" asp-items="Html.GetEnumSelectList<PaymentType>()" class="form-select"></select>
+                                    <span asp-validation-for="Participator.PaymentType" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <br/>
+                            <div class="form-group row">
+                                <label asp-for="Participator.Person!.PersonDescription" class="col-sm-3 col-form-label">Lisainfo: </label>
+                                <div class="col-sm-9">
+                                    <textarea asp-for="Participator.Person!.PersonDescription" class="form-control" rows="3"></textarea>
+                                    <span asp-validation-for="Participator.Person!.PersonDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <a class="btn btn-light me-2" style="width: 74px" href="/EventInfos/Details?id=@Model.EventInfoId">Tagasi</a>
+                                    <input type="submit" style="width: 84px" value="Salvesta" class="btn btn-primary"/>
+                                </div>
+                                <div class="col-sm-8"></div>
+                            </div>
+
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Participator.Company!.Id" class="form-control">
+                            <input type="hidden" asp-for="Participator.CompanyId" class="form-control">
+                            <input type="hidden" asp-for="Participator.Id" class="form-control">
+                            <input type="hidden" name="eventId" value="@Model.EventInfoId"/>
+
+                            <div class="form-group row">
+                                <label asp-for="Participator.Company!.CompanyName" class="col-sm-3 col-form-label">Nimi:</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Participator.Company!.CompanyName" class="form-control">
+                                    <span asp-validation-for="Participator.Company!.CompanyName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-group row">
+                                <label asp-for="Participator.Company!.CompanyRegistryCode" class="col-sm-3 col-form-label">Registrikood:</label>
+                                <div class="col-sm-9">
+                                    <input type="number" asp-for="Participator.Company!.CompanyRegistryCode" class="form-control">
+                                    <span asp-validation-for="Participator.Company!.CompanyRegistryCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-group row">
+                                <label asp-for="Participator.Company!.CompanyMemberCount" class="col-sm-3 col-form-label">Osavõtjate arv:</label>
+                                <div class="col-sm-9">
+                                    <input type="number" asp-for="Participator.Company!.CompanyMemberCount" class="form-control">
+                                    <span asp-validation-for="Participator.Company!.CompanyMemberCount" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <div class="form-group row">
+                                <label asp-for="Participator.PaymentType" class="col-sm-3 control-label">Maksmisviis:</label>
+                                <div class="col-sm-9">
+
+                                    <select asp-for="Participator.PaymentType" asp-items="Html.GetEnumSelectList<PaymentType>()" class="form-select"></select>
+                                    <span asp-validation-for="Participator.PaymentType" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <br/>
+                            <div class="form-group row">
+                                <label asp-for="Participator.Company!.CompanyDescription" class="col-sm-3 col-form-label">Lisainfo: </label>
+                                <div class="col-sm-9">
+                                    <textarea asp-for="Participator.Company!.CompanyDescription" class="form-control" rows="3"></textarea>
+                                    <span asp-validation-for="Participator.Company!.CompanyDescription" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <a class="btn btn-light me-2" style="width: 74px" href="/EventInfos/Details?id=@Model.EventInfoId">Tagasi</a>
+                                    <input type="submit" style="width: 84px" value="Salvesta" class="btn btn-primary"/>
+                                </div>
+                                <div class="col-sm-8"></div>
+                            </div>
+
+                        </form>
+                    }
+                }
             </div>
-            <div class="form-group">
-                <label asp-for="Participator.CompanyId" class="control-label"></label>
-                <select asp-for="Participator.CompanyId" class="form-control" asp-items="ViewBag.CompanyId"></select>
-                <span asp-validation-for="Participator.CompanyId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Participator.PaymentType" class="control-label"></label>
-                <input asp-for="Participator.PaymentType" class="form-control" />
-                <span asp-validation-for="Participator.PaymentType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

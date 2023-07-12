@@ -22,35 +22,56 @@ namespace WebApp.Pages.Participators
 
         [BindProperty]
         public Participator Participator { get; set; } = default!;
+        [BindProperty]
+        public Person Person { get; set; } = default!;
+        [BindProperty]
+        public Company Company { get; set; } = default!;
+        
+        public int? EventInfoId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, int? eventInfoId)
         {
             if (id == null || _context.Participators == null)
             {
                 return NotFound();
             }
 
-            var participator =  await _context.Participators.FirstOrDefaultAsync(m => m.Id == id);
+            if (eventInfoId != null)
+            {
+                EventInfoId = eventInfoId;
+            }
+
+            var participator = await _context.Participators
+                .Include(p => p.Person)
+                .Include(p => p.Company)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (participator == null)
             {
                 return NotFound();
             }
+            Console.WriteLine("Person: " + participator.Person);
+            Console.WriteLine("Company: " + participator.Company);
             Participator = participator;
-           ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "CompanyName");
-           ViewData["PersonId"] = new SelectList(_context.Persons, "Id", "PersonFirstName");
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? eventId)
         {
-            if (!ModelState.IsValid)
+            
+            _context.Attach(Participator).State = EntityState.Modified;
+            
+            if (Participator.Person != null)
             {
-                return Page();
+                _context.Attach(Participator.Person).State = EntityState.Modified;
             }
 
-            _context.Attach(Participator).State = EntityState.Modified;
+            if (Participator.Company != null)
+            {
+                _context.Attach(Participator.Company).State = EntityState.Modified;
+            }
 
             try
             {
@@ -68,6 +89,10 @@ namespace WebApp.Pages.Participators
                 }
             }
 
+            if (eventId != null)
+            {
+                return RedirectToPage("/EventInfos/Details", new { id = eventId });
+            }
             return RedirectToPage("./Index");
         }
 
