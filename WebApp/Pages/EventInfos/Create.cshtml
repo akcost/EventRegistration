@@ -5,41 +5,80 @@
     ViewData["Title"] = "Create";
 }
 
+<div class="bg-white">
+    <div class="row" style="margin-right: 0; margin-left: 0;">
 
-<h4>Ürituse lisamine</h4>
-<hr/>
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="EventInfo.EventName" class="control-label">Ürituse nimi</label>
-                <input asp-for="EventInfo.EventName" class="form-control"/>
-                <span asp-validation-for="EventInfo.EventName" class="text-danger"></span>
-            </div>
+        <div class="col-md-3 bg-primary text-white d-flex align-items-center justify-content-center">
+            <h1 class="text-center">Ürituse lisamine</h1>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="EventInfo.EventDateTime" class="control-label">Toimumisaeg</label>
-                <input asp-for="EventInfo.EventDateTime" class="form-control"/>
-                <span asp-validation-for="EventInfo.EventDateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventInfo.EventLocation" class="control-label">Koht</label>
-                <input asp-for="EventInfo.EventLocation" class="form-control"/>
-                <span asp-validation-for="EventInfo.EventLocation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventInfo.EventDescription" class="control-label">Lisainfo</label>
-                <input asp-for="EventInfo.EventDescription" class="form-control"/>
-                <span asp-validation-for="EventInfo.EventDescription" class="text-danger"></span>
-            </div>
-            <br/>
-            <div class="form-group">
-                <input type="submit" value="Lisa" class="btn btn-primary"/>
-                <a asp-page="Index">Back to List</a>
-            </div>
 
-        </form>
+        <div class="col-md-9 p-0" style="height: 100px; max-width: max-content; overflow: hidden;">
+            <img src="https://cdn.wallpapersafari.com/36/32/YpBq6m.jpg" alt="no img found">
+        </div>
+
+    </div>
+
+    <div class="w-50 align-content-center mx-auto">
+        <br/>
+        <br/>
+        <h3 class="text-primary">Ürituse lisamine</h3>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group row">
+                        <label for="EventName" class="col-sm-3 col-form-label">Ürituse nimi:</label>
+                        <div class="col-sm-9">
+                            <input asp-for="EventInfo.EventName" class="form-control" id="EventName">
+                            <span asp-validation-for="EventInfo.EventName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div class="form-group row">
+                        <label asp-for="EventInfo.EventDateTime" class="col-sm-3 col-form-label">Toimumisaeg: </label>
+                        <div class="col-sm-9">
+                            <input asp-for="EventInfo.EventDateTime" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control"/>
+                            <span asp-validation-for="EventInfo.EventDateTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="form-group row">
+                        <label asp-for="EventInfo.EventLocation" class="col-sm-3 col-form-label">Koht: </label>
+                        <div class="col-sm-9">
+                            <input asp-for="EventInfo.EventLocation" class="form-control"/>
+                            <span asp-validation-for="EventInfo.EventLocation" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="form-group row">
+                        <label asp-for="EventInfo.EventDescription" class="col-sm-3 col-form-label">Lisainfo: </label>
+                        <div class="col-sm-9">
+                            <textarea asp-for="EventInfo.EventDescription" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="EventInfo.EventDescription" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <a class="btn btn-light me-2" style="width: 74px" asp-page="Index">Tagasi</a>
+                            <input type="submit" style="width: 74px" value="Lisa" class="btn btn-primary"/>
+                        </div>
+                        <div class="col-sm-9"></div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
