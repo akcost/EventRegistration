@@ -22,8 +22,6 @@ namespace WebApp.Pages.Participators
 
         public IActionResult OnGet()
         {
-            ViewData["PaymentType"] = new SelectList(_context.Companies, "Id", "CompanyName");
-            ViewData["PersonId"] = new SelectList(_context.Persons, "Id", "PersonFirstName");
             return Page();
         }
 
