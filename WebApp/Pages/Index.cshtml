@@ -69,7 +69,9 @@
                         <div class="row participator mb-2">
 
                             <div class="col-sm-4 text-truncate">
-                                @Model.PastEvents[i].EventName
+                                @(i + 1).
+                                <a href="/EventInfos/Details?id=@Model.PastEvents[i].Id" class="text-truncate text-black-50 text-decoration-none"> @Model.PastEvents[i].EventName</a>
+                                
                             </div>
                             <div class="col-sm-3 text-truncate">
                                 @Model.PastEvents[i].EventLocation
@@ -77,7 +79,7 @@
                             <div class="col-sm-2">
                                 @Model.PastEvents[i].EventDateTime.Value.ToShortDateString()
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 text-end">
                                 <a href="/EventInfos/Details?id=@Model.PastEvents[i].Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
                             </div>
                         </div>
