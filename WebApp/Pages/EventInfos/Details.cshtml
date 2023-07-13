@@ -170,7 +170,7 @@
                         <label asp-for="Person.PersonIdCode" class="col-sm-2 control-label">ID kood:</label>
                         <div class="col-sm-10">
 
-                            <input asp-for="Person.PersonIdCode" class="form-control w-50" type="number"/>
+                            <input asp-for="Person.PersonIdCode" class="form-control w-50" minlength="11" maxlength="11" type="number"/>
                             <span asp-validation-for="Person.PersonIdCode" class="text-danger"></span>
                         </div>
 
@@ -193,7 +193,7 @@
                         <label asp-for="Person.PersonDescription" class="col-sm-2 control-label">Lisa info:</label>
                         <div class="col-sm-10">
 
-                            <textarea asp-for="Person.PersonDescription" class="form-control w-50" rows="3"></textarea>
+                            <textarea asp-for="Person.PersonDescription" maxlength="1500" class="form-control w-50" rows="3"></textarea>
                             <span asp-validation-for="Person.PersonDescription" class="text-danger"></span>
                         </div>
 
@@ -255,7 +255,7 @@
                         <label asp-for="Company.CompanyDescription" class="col-sm-2 control-label">Lisa info:</label>
                         <div class="col-sm-10">
 
-                            <textarea asp-for="Company.CompanyDescription" class="form-control w-50" rows="3"></textarea>
+                            <textarea asp-for="Company.CompanyDescription" maxlength="5000" class="form-control w-50" rows="3"></textarea>
                             <span asp-validation-for="Company.CompanyDescription" class="text-danger"></span>
                         </div>
                     </div>

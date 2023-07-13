@@ -26,7 +26,7 @@
             <div class="row">
                 <h3 class="bg-primary text-white p-3 text-center fw-light">Tulevased üritused</h3>
                 <div class="mt-2 px-4">
-                    @for (var i=0; i < 4; i++)
+                    @for (var i=0; i < Math.Min(4, Model.FutureEvents.Count); i++)
                     {
                         <div class="row mb-2">
                             <div class="col-sm-6">
@@ -59,18 +59,18 @@
                 <h3 class="bg-primary fw-light text-white p-3 text-center">Toimunud üritused</h3>
 
                 <div class="mt-2 px-4">
-                    @foreach (var eventInfo in Model.PastEvents)
+                    @for (var i=0; i < Math.Min(6, Model.PastEvents.Count); i++)
                     {
                         <div class="row participator mb-2">
 
                             <div class="col-sm-6">
-                                @eventInfo.EventName
+                                @Model.PastEvents[i].EventName
                             </div>
                             <div class="col-sm-3">
-                                @eventInfo.EventDateTime.Value.ToShortDateString()
+                                @Model.PastEvents[i].EventDateTime.Value.ToShortDateString()
                             </div>
                             <div class="col-sm-3">
-                                <a href="/EventInfos/Details?id=@eventInfo.Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
+                                <a href="/EventInfos/Details?id=@Model.PastEvents[i].Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
                             </div>
                         </div>
                     }

@@ -56,7 +56,7 @@
                     <div class="form-group row">
                         <label asp-for="EventInfo.EventDescription" class="col-sm-3 col-form-label">Lisainfo: </label>
                         <div class="col-sm-9">
-                            <textarea asp-for="EventInfo.EventDescription" style="resize: none;" class="form-control" rows="4"></textarea>
+                            <textarea asp-for="EventInfo.EventDescription" maxlength="1000" style="resize: none;" class="form-control" rows="4"></textarea>
                             <span asp-validation-for="EventInfo.EventDescription" class="text-danger"></span>
                         </div>
                     </div>

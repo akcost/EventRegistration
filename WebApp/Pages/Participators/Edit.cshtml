@@ -56,7 +56,7 @@
                             <div class="form-group row mb-3">
                                 <label asp-for="Participator.Person!.PersonIdCode" class="col-sm-3 col-form-label">ID kood:</label>
                                 <div class="col-sm-9">
-                                    <input type="number" asp-for="Participator.Person!.PersonIdCode" class="form-control">
+                                    <input type="number" asp-for="Participator.Person!.PersonIdCode" minlength="11" maxlength="11" class="form-control">
                                     <span asp-validation-for="Participator.Person!.PersonIdCode" class="text-danger"></span>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                             <div class="form-group row mb-3">
                                 <label asp-for="Participator.Person!.PersonDescription" class="col-sm-3 col-form-label">Lisainfo: </label>
                                 <div class="col-sm-9">
-                                    <textarea style="resize: none" asp-for="Participator.Person!.PersonDescription" class="form-control" rows="3"></textarea>
+                                    <textarea style="resize: none" asp-for="Participator.Person!.PersonDescription" maxlength="1500" class="form-control" rows="3"></textarea>
                                     <span asp-validation-for="Participator.Person!.PersonDescription" class="text-danger"></span>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                             <div class="form-group row mb-3">
                                 <label asp-for="Participator.Company!.CompanyDescription" class="col-sm-3 col-form-label">Lisainfo: </label>
                                 <div class="col-sm-9">
-                                    <textarea asp-for="Participator.Company!.CompanyDescription" class="form-control" rows="3"></textarea>
+                                    <textarea asp-for="Participator.Company!.CompanyDescription" maxlength="5000" class="form-control" rows="3"></textarea>
                                     <span asp-validation-for="Participator.Company!.CompanyDescription" class="text-danger"></span>
                                 </div>
                             </div>
