@@ -19,13 +19,13 @@ namespace WebApp.Pages.EventInfos
             _context = context;
         }
 
-        public IList<EventInfo> EventInfo { get;set; } = default!;
+        public IList<EventInfo> EventInfo { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.EventInfos != null)
             {
-                EventInfo = await _context.EventInfos.ToListAsync();
+                EventInfo = await _context.EventInfos.OrderByDescending(e => e.EventDateTime).ToListAsync();
             }
         }
     }

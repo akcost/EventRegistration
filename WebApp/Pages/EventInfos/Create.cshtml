@@ -40,7 +40,7 @@
                     <div class="form-group row mb-3">
                         <label asp-for="EventInfo.EventDateTime" class="col-sm-3 col-form-label">Toimumisaeg: </label>
                         <div class="col-sm-9">
-                            <input asp-for="EventInfo.EventDateTime" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control"/>
+                            <input asp-for="EventInfo.EventDateTime" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" required/>
                             <span asp-validation-for="EventInfo.EventDateTime" class="text-danger"></span>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                     <div class="form-group row mb-3">
                         <label asp-for="EventInfo.EventLocation" class="col-sm-3 col-form-label">Koht: </label>
                         <div class="col-sm-9">
-                            <input asp-for="EventInfo.EventLocation" class="form-control"/>
+                            <input asp-for="EventInfo.EventLocation" class="form-control" required/>
                             <span asp-validation-for="EventInfo.EventLocation" class="text-danger"></span>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-group row">
                         <label asp-for="EventInfo.EventDescription" class="col-sm-3 col-form-label">Lisainfo: </label>
                         <div class="col-sm-9">
-                            <textarea asp-for="EventInfo.EventDescription" class="form-control" rows="4"></textarea>
+                            <textarea asp-for="EventInfo.EventDescription" style="resize: none;" class="form-control" rows="4"></textarea>
                             <span asp-validation-for="EventInfo.EventDescription" class="text-danger"></span>
                         </div>
                     </div>

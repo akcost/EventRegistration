@@ -5,42 +5,51 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<div class="bg-white" style="height: calc(100vh - 389px)">
+    <div class="row" style="margin-right: 0; margin-left: 0;">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>EventInfo</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EventInfo.EventName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EventInfo.EventName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EventInfo.EventLocation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EventInfo.EventLocation)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EventInfo.EventDateTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EventInfo.EventDateTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EventInfo.EventDescription)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EventInfo.EventDescription)
-        </dd>
-    </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="EventInfo.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
-    </form>
+        <div class="col-md-3 bg-primary text-white d-flex align-items-center justify-content-center">
+            <h2 class="text-center">Ürituse kustutamine</h2>
+        </div>
+
+        <div class="col-md-9 p-0" style="height: 100px; overflow: hidden; object-fit: cover;">
+            <img style="width: 150%; " src="~/images/libled.jpg" alt="no img found"/>
+        </div>
+
+    </div>
+    <div class="p-4">
+        <dl class="row">
+            <dt class="col-sm-2">
+                Nimi
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EventInfo.EventName)
+            </dd>
+            <dt class="col-sm-2">
+                Koht
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EventInfo.EventLocation)
+            </dd>
+            <dt class="col-sm-2">
+                Toimumisaeg
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EventInfo.EventDateTime)
+            </dd>
+            <dt class="col-sm-2">
+                Lisainfo
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EventInfo.EventDescription)
+            </dd>
+        </dl>
+
+        <form method="post">
+            <input type="hidden" asp-for="EventInfo.Id"/>
+            <input type="submit" value="Kustuta" class="btn btn-danger me-2"/>
+            <a class="btn btn-light me-2" style="width: 74px" asp-page="Index">Tagasi</a>
+
+        </form>
+    </div>
 </div>

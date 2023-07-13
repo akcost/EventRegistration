@@ -27,6 +27,8 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Pages\EventPage\EventPage.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\EventPage\index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\FutureEvents\FutureEvents.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\PastEvents\PastEvents.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

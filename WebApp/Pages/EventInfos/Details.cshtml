@@ -112,165 +112,171 @@
 
 <h4 class="text-primary">Osavõtjate lisamine</h4>
 <br/>
-<div class="">
-    <div class="col">
+@{
+    if (Model.EventInfo.EventDateTime > DateTime.Now)
+    {
+        <div class="">
+            <div class="col">
 
-        <div class="form-group row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-10">
-                <div class="row w-50">
-                    <div class="col-md-6">
-                        <div class="form-check">
-                            <input class="form-check-input" checked type="radio" name="flexRadioDefault" id="flexRadioDefault1" onchange="@{ Model.IsPerson = !Model.IsPerson; }" value="Person" onclick="toggleSection('Person')">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Eraisik
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="@{ Model.IsPerson = !Model.IsPerson; }" value="Company" onclick="toggleSection('Company')">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Ettevõte
-                            </label>
+                <div class="form-group row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        <div class="row w-50">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" checked type="radio" name="flexRadioDefault" id="flexRadioDefault1" onchange="@{ Model.IsPerson = !Model.IsPerson; }" value="Person" onclick="toggleSection('Person')">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Eraisik
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="@{ Model.IsPerson = !Model.IsPerson; }" value="Company" onclick="toggleSection('Company')">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Ettevõte
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <br/>
+
+                <form method="post" id="personSection" style="display: block;">
+                    <input type="hidden" name="eventInfoId" value="@Model.EventInfo.Id"/>
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group row mb-3">
+                        <label class="col-sm-2 control-label" asp-for="Person.PersonFirstName">Eesnimi:</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Person.PersonFirstName" class="form-control w-50" size="10" maxlength="5"/>
+                            <span asp-validation-for="Person.PersonFirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3">
+
+                        <label asp-for="Person.PersonLastName" class="col-sm-2 control-label">Perekonnanimi:</label>
+                        <div class="col-sm-10">
+
+                            <input asp-for="Person.PersonLastName" class="form-control w-50"/>
+                            <span asp-validation-for="Person.PersonLastName" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label asp-for="Person.PersonIdCode" class="col-sm-2 control-label">ID kood:</label>
+                        <div class="col-sm-10">
+
+                            <input asp-for="Person.PersonIdCode" class="form-control w-50" type="number"/>
+                            <span asp-validation-for="Person.PersonIdCode" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label asp-for="PaymentType" class="col-sm-2 control-label">Maksmisviis:</label>
+                        <div class="col-sm-10">
+                            <select asp-for="PaymentType" class="form-select w-50">
+                                <option value="BankTransfer">Pangaülekanne</option>
+                                <option value="Cash">Sularaha</option>
+                            </select>
+                            <span asp-validation-for="PaymentType" class="text-danger"></span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group row ">
+                        <label asp-for="Person.PersonDescription" class="col-sm-2 control-label">Lisa info:</label>
+                        <div class="col-sm-10">
+
+                            <textarea asp-for="Person.PersonDescription" class="form-control w-50" rows="3"></textarea>
+                            <span asp-validation-for="Person.PersonDescription" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <a class="btn btn-light me-2" style="width: 74px" asp-page="Index">Tagasi</a>
+                            <input type="submit" style="width: 74px" value="Lisa" class="btn btn-primary"/>
+                        </div>
+                        <div class="col-sm-10"></div>
+                    </div>
+                </form>
+                <form method="post" id="companySection" style="display: none;">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" name="eventInfoId" value="@Model.EventInfo.Id"/>
+                    <div class="form-group row mb-3">
+                        <label asp-for="Company.CompanyName" class="col-sm-2 control-label">Nimi:</label>
+                        <div class="col-sm-10">
+
+                            <input asp-for="Company.CompanyName" class="form-control w-50" data-val-required="Vajalik väli."/>
+                            <span asp-validation-for="Company.CompanyName" class="text-danger" data-valmsg-for="Company.CompanyName"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label asp-for="Company.CompanyRegistryCode" class="col-sm-2 control-label">Registrikood:</label>
+                        <div class="col-sm-10">
+
+                            <input asp-for="Company.CompanyRegistryCode" class="form-control w-50" data-val-required="Vajalik väli."/>
+                            <span asp-validation-for="Company.CompanyRegistryCode" class="text-danger" data-valmsg-for="Company.CompanyRegistryCode"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label asp-for="Company.CompanyMemberCount" class="col-sm-2 control-label">Osavõtjate arv:</label>
+                        <div class="col-sm-10">
+
+                            <input asp-for="Company.CompanyMemberCount" class="form-control w-50" data-val-required="Vajalik väli."/>
+                            <span asp-validation-for="Company.CompanyMemberCount" class="text-danger" data-valmsg-for="Company.CompanyMemberCount"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label asp-for="PaymentType" class="col-sm-2 control-label">Maksmisviis:</label>
+                        <div class="col-sm-10">
+                            <select asp-for="PaymentType" class="form-select w-50">
+                                <option value="BankTransfer">Pangaülekanne</option>
+                                <option value="Cash">Sularaha</option>
+                            </select>
+                            <span asp-validation-for="PaymentType" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row ">
+                        <label asp-for="Company.CompanyDescription" class="col-sm-2 control-label">Lisa info:</label>
+                        <div class="col-sm-10">
+
+                            <textarea asp-for="Company.CompanyDescription" class="form-control w-50" rows="3"></textarea>
+                            <span asp-validation-for="Company.CompanyDescription" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <a class="btn btn-light me-2" style="width: 74px" asp-page="Index">Tagasi</a>
+                            <input type="submit" style="width: 74px" value="Lisa" class="btn btn-primary"/>
+                        </div>
+                        <div class="col-sm-10"></div>
+                    </div>
+                </form>
             </div>
         </div>
-        <br/>
-
-        <form method="post" id="personSection" style="display: block;">
-            <input type="hidden" name="eventInfoId" value="@Model.EventInfo.Id"/>
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group row">
-                <label class="col-sm-2 control-label" asp-for="Person.PersonFirstName">Eesnimi:</label>
-                <div class="col-sm-10">
-                    <input asp-for="Person.PersonFirstName" class="form-control w-50" size="10" maxlength="5"/>
-                    <span asp-validation-for="Person.PersonFirstName" class="text-danger"></span>
-                </div>
-            </div>
-            <br/>
-            <div class="form-group row">
-
-                <label asp-for="Person.PersonLastName" class="col-sm-2 control-label">Perekonnanimi:</label>
-                <div class="col-sm-10">
-
-                    <input asp-for="Person.PersonLastName" class="form-control w-50"/>
-                    <span asp-validation-for="Person.PersonLastName" class="text-danger"></span>
-                </div>
-
-            </div>
-            <br/>
-
-            <div class="form-group row">
-                <label asp-for="Person.PersonIdCode" class="col-sm-2 control-label">ID kood:</label>
-                <div class="col-sm-10">
-
-                    <input asp-for="Person.PersonIdCode" class="form-control w-50" type="number"/>
-                    <span asp-validation-for="Person.PersonIdCode" class="text-danger"></span>
-                </div>
-
-            </div>
-            <br/>
-
-            <div class="form-group row">
-                <label asp-for="PaymentType" class="col-sm-2 control-label">Maksmisviis:</label>
-                <div class="col-sm-10">
-
-                    <select asp-for="PaymentType" asp-items="Html.GetEnumSelectList<PaymentType>()" class="form-select w-50"></select>
-                    <span asp-validation-for="PaymentType" class="text-danger"></span>
-                </div>
-
-            </div>
-            <br/>
-
-            <div class="form-group row">
-                <label asp-for="Person.PersonDescription" class="col-sm-2 control-label">Lisa info:</label>
-                <div class="col-sm-10">
-
-                    <textarea asp-for="Person.PersonDescription" class="form-control w-50" rows="3"></textarea>
-                    <span asp-validation-for="Person.PersonDescription" class="text-danger"></span>
-                </div>
-
-            </div>
-
-            <br/>
-
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <a class="btn btn-light me-2" style="width: 74px" asp-page="Index">Tagasi</a>
-                    <input type="submit" style="width: 74px" value="Lisa" class="btn btn-primary"/>
-                </div>
-                <div class="col-sm-10"></div>
-            </div>
-        </form>
-        <form method="post" id="companySection" style="display: none;">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <input type="hidden" name="eventInfoId" value="@Model.EventInfo.Id"/>
-            <div class="form-group row">
-                <label asp-for="Company.CompanyName" class="col-sm-2 control-label">Nimi:</label>
-                <div class="col-sm-10">
-
-                    <input asp-for="Company.CompanyName" class="form-control w-50" data-val-required="Vajalik väli."/>
-                    <span asp-validation-for="Company.CompanyName" class="text-danger" data-valmsg-for="Company.CompanyName"></span>
-                </div>
-            </div>
-            <br/>
-
-            <div class="form-group row">
-                <label asp-for="Company.CompanyRegistryCode" class="col-sm-2 control-label">Registrikood:</label>
-                <div class="col-sm-10">
-
-                    <input asp-for="Company.CompanyRegistryCode" class="form-control w-50" data-val-required="Vajalik väli."/>
-                    <span asp-validation-for="Company.CompanyRegistryCode" class="text-danger" data-valmsg-for="Company.CompanyRegistryCode"></span>
-                </div>
-            </div>
-            <br/>
-
-            <div class="form-group row">
-                <label asp-for="Company.CompanyMemberCount" class="col-sm-2 control-label">Osavõtjate arv:</label>
-                <div class="col-sm-10">
-
-                    <input asp-for="Company.CompanyMemberCount" class="form-control w-50" data-val-required="Vajalik väli."/>
-                    <span asp-validation-for="Company.CompanyMemberCount" class="text-danger" data-valmsg-for="Company.CompanyMemberCount"></span>
-                </div>
-            </div>
-            <br/>
-
-            <div class="form-group row">
-                <label asp-for="PaymentType" class="col-sm-2 control-label">Maksmisviis:</label>
-                <div class="col-sm-10">
-
-                    <select asp-for="PaymentType" asp-items="Html.GetEnumSelectList<PaymentType>()" class="form-select w-50"></select>
-                    <span asp-validation-for="PaymentType" class="text-danger"></span>
-                </div>
-            </div>
-            <br/>
-
-            <div class="form-group row">
-                <label asp-for="Company.CompanyDescription" class="col-sm-2 control-label">Lisa info:</label>
-                <div class="col-sm-10">
-
-                    <textarea asp-for="Company.CompanyDescription" class="form-control w-50" rows="3"></textarea>
-                    <span asp-validation-for="Company.CompanyDescription" class="text-danger"></span>
-                </div>
-            </div>
-
-            <br/>
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <a class="btn btn-light me-2" style="width: 74px" asp-page="Index">Tagasi</a>
-                    <input type="submit" style="width: 74px" value="Lisa" class="btn btn-primary"/>
-                </div>
-                <div class="col-sm-10"></div>
-            </div>
-        </form>
-    </div>
-</div>
+    }
+    else
+    {
+        <div>Üritus on juba toimunud. Ei ole võimalik uusi osavõtjaid lisada.</div>
+    }
+}
 
 </div>
 <br/>

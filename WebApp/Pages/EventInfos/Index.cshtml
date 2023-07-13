@@ -5,50 +5,72 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="row" style="margin-right: 0; margin-left: 0;">
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EventInfo[0].EventName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventInfo[0].EventLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventInfo[0].EventDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventInfo[0].EventDescription)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.EventInfo) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDescription)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="col-md-3 bg-primary text-white d-flex align-items-center justify-content-center">
+        <h1 class="text-center">Üritused</h1>
+    </div>
+
+    <div class="col-md-9 p-0" style="height: 100px; overflow: hidden; object-fit: cover;">
+        <img style="width: 150%; " src="~/images/libled.jpg" alt="no img found"/>
+    </div>
+
+</div>
+<div class="bg-white">
+    <a href="/EventInfos/Create" class="mb-3 mt-3 fw-bold btn btn-link text-black-50 text-decoration-none">LISA ÜRITUS</a>
+
+
+    <div class="col bg-white ms-3 ">
+        <div class="row">
+
+            <div class="fw-bold row participator mb-2">
+
+                <div class="col-sm-2">
+                    Nimi
+                </div>
+                <div class="col-sm-2">
+                    Koht
+                </div>
+                <div class="col-sm-2">
+                    Toimumisaeg
+                </div>
+                <div class="col-sm-3">
+                    Lisa info
+                </div>
+                <div class="col-sm-3">
+                    
+                </div>
+            </div>
+            @foreach (var eventInfo in Model.EventInfo)
+            {
+                <div class="row participator mb-2">
+
+                    <div class="col-sm-2">
+                        @eventInfo.EventName
+                    </div>
+                    <div class="col-sm-2">
+                        @eventInfo.EventLocation
+                    </div>
+                    <div class="col-sm-2">
+                        @eventInfo.EventDateTime.Value.ToShortDateString()
+                    </div>
+                    <div class="col-sm-3">
+                        @eventInfo.EventDescription
+                    </div>
+                    <div class="col-sm-3">
+                        @{
+                            <a href="/EventInfos/Details?id=@eventInfo.Id" class="me-2 text-black-50 text-decoration-none">VAATA</a>
+                            if (eventInfo.EventDateTime > DateTime.Now)
+                            {
+                                <a href="/EventInfos/Edit?id=@eventInfo.Id" class="me-2 text-black-50 text-decoration-none">MUUDA</a>
+                                <a href="/EventInfos/Delete?id=@eventInfo.Id" class="text-black-50 text-decoration-none">KUSTUTA</a>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

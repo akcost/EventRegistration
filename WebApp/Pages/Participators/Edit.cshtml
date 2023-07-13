@@ -16,8 +16,8 @@
 
 
         <div class="col-md-9 p-0" style="height: 100px; overflow: hidden; object-fit: cover;">
-                <img style="width: 150%; " src="~/images/libled.jpg" alt="no img found"/>
-            </div>
+            <img style="width: 150%; " src="~/images/libled.jpg" alt="no img found"/>
+        </div>
 
     </div>
 
@@ -64,8 +64,10 @@
                             <div class="form-group row mb-3">
                                 <label asp-for="Participator.PaymentType" class="col-sm-3 control-label">Maksmisviis:</label>
                                 <div class="col-sm-9">
-
-                                    <select asp-for="Participator.PaymentType" asp-items="Html.GetEnumSelectList<PaymentType>()" class="form-select"></select>
+                                    <select asp-for="Participator.PaymentType" class="form-select">
+                                        <option value="BankTransfer">Pangaülekanne</option>
+                                        <option value="Cash">Sularaha</option>
+                                    </select>
                                     <span asp-validation-for="Participator.PaymentType" class="text-danger"></span>
                                 </div>
 
@@ -125,8 +127,10 @@
                             <div class="form-group row mb-3">
                                 <label asp-for="Participator.PaymentType" class="col-sm-3 control-label">Maksmisviis:</label>
                                 <div class="col-sm-9">
-
-                                    <select asp-for="Participator.PaymentType" asp-items="Html.GetEnumSelectList<PaymentType>()" class="form-select"></select>
+                                    <select asp-for="Participator.PaymentType" class="form-select">
+                                        <option value="BankTransfer">Pangaülekanne</option>
+                                        <option value="Cash">Sularaha</option>
+                                    </select>
                                     <span asp-validation-for="Participator.PaymentType" class="text-danger"></span>
                                 </div>
 
