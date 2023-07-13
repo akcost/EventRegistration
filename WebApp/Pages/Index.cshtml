@@ -25,18 +25,23 @@
             <!-- Content for the third square -->
             <div class="row">
                 <h3 class="bg-primary text-white p-3 text-center fw-light">Tulevased üritused</h3>
-                <div class="mt-2 px-4">
-                    @for (var i=0; i < Math.Min(4, Model.FutureEvents.Count); i++)
+                <div class="mt-2 px-3">
+                    @for (var i = 0; i < Math.Min(4, Model.FutureEvents.Count); i++)
                     {
                         <div class="row mb-2">
-                            <div class="col-sm-6">
-                                @(i+1). @Model.FutureEvents[i].EventName
+                            <div class="col-sm-3">
+                                @(i + 1).
+                                <a href="/EventInfos/Details?id=@Model.FutureEvents[i].Id" class="text-truncate text-black-50 text-decoration-none"> @Model.FutureEvents[i].EventName</a>
+
                             </div>
-                            <div class="col-sm-3 ">
+                            <div class="col-sm-3 text-truncate">
+                                @Model.FutureEvents[i].EventLocation
+                            </div>
+                            <div class="col-sm-2 ">
                                 @Model.FutureEvents[i].EventDateTime.Value.ToShortDateString()
                             </div>
-                            <div class="col-sm-3">
-                                <a href="/EventInfos/Details?id=@Model.FutureEvents[i].Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
+                            <div class="col-sm-4 text-end">
+                                <a href="/EventInfos/AddParticipator?id=@Model.FutureEvents[i].Id" class="me-2 text-black-50 text-decoration-none">LISA OSAVÕTJA</a>
                                 <a href="/EventInfos/Delete?id=@Model.FutureEvents[i].Id" class="text-black-50 text-decoration-none">
                                     <img width="24" alt="icon img" src="images/remove.svg"/>
                                 </a>
@@ -46,9 +51,9 @@
                     }
                 </div>
             </div>
-            <div class="d-flex justify-content-between pb-3">
-                <a href="/EventInfos/Create" class="fw-bold btn btn-link text-black-50 text-decoration-none">LISA ÜRITUS</a>
-                <a href="/EventInfos/Index" class="fw-bold btn btn-link text-black-50 text-decoration-none">VAATA KÕIKI ÜRITUSI</a>
+            <div class="d-flex justify-content-between pb-3 px-1">
+                <a href="/EventInfos/Create" class="fw-bold text-black-50 text-decoration-none">LISA ÜRITUS</a>
+                <a href="/EventInfos/Index" class="fw-bold text-black-50 text-decoration-none">VAATA KÕIKI ÜRITUSI</a>
 
             </div>
         </div>
@@ -59,14 +64,17 @@
                 <h3 class="bg-primary fw-light text-white p-3 text-center">Toimunud üritused</h3>
 
                 <div class="mt-2 px-4">
-                    @for (var i=0; i < Math.Min(6, Model.PastEvents.Count); i++)
+                    @for (var i = 0; i < Math.Min(6, Model.PastEvents.Count); i++)
                     {
                         <div class="row participator mb-2">
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4 text-truncate">
                                 @Model.PastEvents[i].EventName
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 text-truncate">
+                                @Model.PastEvents[i].EventLocation
+                            </div>
+                            <div class="col-sm-2">
                                 @Model.PastEvents[i].EventDateTime.Value.ToShortDateString()
                             </div>
                             <div class="col-sm-3">

@@ -47,8 +47,6 @@ namespace WebApp.Pages.EventInfos
         [BindProperty] public Company Company { get; set; } = default!;
         [BindProperty] public PaymentType PaymentType { get; set; }
 
-        public Boolean IsPerson { get; set; } = true;
-
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync(int eventInfoId)

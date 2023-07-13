@@ -62,12 +62,14 @@
         <dd class="col-sm-10">
             <br/>
             <div class="participators">
-                @foreach (var participator in Model.Participators)
+                @for (var i = 0; i < Model.Participators.Count; i++)
                 {
+                    var participator = Model.Participators[i];
                     <div class="row participator">
                         <div class="col">
                             <div class="row">
                                 <div class="col participator-name">
+                                    @(i+1 + ". ")
                                     @if (participator!.Person != null)
                                     {
                                         @(participator.Person.PersonFirstName + " " + participator.Person.PersonLastName)
@@ -124,7 +126,7 @@
                         <div class="row w-50">
                             <div class="col-md-6">
                                 <div class="form-check">
-                                    <input class="form-check-input" checked type="radio" name="flexRadioDefault" id="flexRadioDefault1" onchange="@{ Model.IsPerson = !Model.IsPerson; }" value="Person" onclick="toggleSection('Person')">
+                                    <input class="form-check-input" checked type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Person" onclick="toggleSection('Person')">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Eraisik
                                     </label>
@@ -132,7 +134,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="@{ Model.IsPerson = !Model.IsPerson; }" value="Company" onclick="toggleSection('Company')">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Company" onclick="toggleSection('Company')">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Ettevõte
                                     </label>

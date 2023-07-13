@@ -39,7 +39,7 @@ namespace WebApp.Pages.EventInfos
             _context.EventInfos.Add(EventInfo);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/EventInfos/Details", new { id = EventInfo.Id });
+            return RedirectToPage("/Index");
         }
     }
 }

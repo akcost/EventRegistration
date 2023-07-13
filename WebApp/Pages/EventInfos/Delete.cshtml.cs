@@ -48,12 +48,36 @@ namespace WebApp.Pages.EventInfos
             {
                 return NotFound();
             }
-            var eventinfo = await _context.EventInfos.FindAsync(id);
+            var eventInfo = await _context.EventInfos.FindAsync(id);
 
-            if (eventinfo != null)
+            if (eventInfo != null)
             {
-                EventInfo = eventinfo;
-                _context.EventInfos.Remove(EventInfo);
+                // Find all EventParticipators associated with the EventInfo
+                var eventParticipators = _context.EventParticipators
+                    .Include(ep => ep.Participator )
+                    .Include(ep => ep.Participator!.Company)
+                    .Include(ep => ep.Participator!.Person)
+                    .Where(ep => ep.EventInfoId == id)
+                    .ToList();
+                
+                // Delete the EventParticipators, Participators and associated Person/Company records
+                foreach (var eventParticipator in eventParticipators)
+                {
+                    
+                    if (eventParticipator.Participator!.Person != null)
+                    {
+                        _context.Persons.Remove(eventParticipator.Participator.Person);
+                    }
+                    else if (eventParticipator.Participator.Company != null)
+                    {
+                        _context.Companies.Remove(eventParticipator.Participator.Company);
+                    }
+                    _context.Participators.Remove(eventParticipator.Participator);
+                    _context.EventParticipators.Remove(eventParticipator);
+                }
+                
+                _context.EventInfos.Remove(eventInfo);
+
                 await _context.SaveChangesAsync();
             }
 
