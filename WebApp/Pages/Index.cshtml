@@ -4,9 +4,9 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="container-fluid" style="height: calc(100vh - 169px)">
-    <div class="row h-50">
-        <div class="col bg-primary mb-3" style=" padding-left: 0; padding-right: 0; display: flex; align-items: center; justify-content: center;">
+<div class="container" style="height: calc(100vh - 389px)">
+    <div class="row mb-4" style="height: calc(50% - 16px)">
+        <div class="col bg-primary" style="height: 100%; padding-left: 0px; padding-right: 0px; display: flex; align-items: center; justify-content: center;">
             <!-- Content for the first square -->
             <h3 class="px-5 text-white fw-normal">
                 Sed nec elit vestibulum, tincidunt orci et, sagittis
@@ -14,23 +14,53 @@
                 lobortis lorem non, accumsan metus.
             </h3>
         </div>
-        <div class="col bg-secondary mb-3" style=" padding-left: 0; padding-right: 0; display: flex; align-items: center; justify-content: center;">
+        <div class="col bg-secondary" style="height: 100%; padding-left: 0px; padding-right: 0px">
             <!-- Content for the second square -->
-            <img class="h-100 w-100" alt="My image" src="images/pilt.jpg"/>
+            <img class="" style="height: 100%; width: inherit; overflow: hidden;" alt="My image" src="images/pilt.jpg"/>
 
         </div>
     </div>
-
-    <div class="row h-50">
-        <div class="col bg-white mt-3 me-3 d-flex flex-column justify-content-between">
+    <div class="row" style="height: calc(50% - 16px)">
+        <div class="col bg-white me-3 d-flex flex-column">
             <!-- Content for the third square -->
             <div class="row">
                 <h3 class="bg-primary text-white p-4 text-center fw-light">Tulevased üritused</h3>
+                <div class="mt-2">
+                    @foreach (var eventInfo in Model.FutureEvents)
+                    {
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                @eventInfo.EventName
+                            </div>
+                            <div class="col-sm-3 ">
+                                @eventInfo.EventDateTime.Value.ToShortDateString()
+                            </div>
+                            <div class="col-sm-3">
+                                <a href="/EventInfos/Details?id=@eventInfo.Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
+                                <a href="/EventInfos/Delete?id=@eventInfo.Id" class="text-black-50 text-decoration-none">
+                                    <img width="24" alt="icon img" src="images/remove.svg"/>
+                                </a>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="d-flex p-2 pb-3">
+                <a href="/EventInfos/Create" class="fw-bold btn btn-link me-4 text-black-50 text-decoration-none">LISA ÜRITUS</a>
+
+            </div>
+        </div>
+
+        <div class="col bg-white ms-3 ">
+            <!-- Content for the third square -->
+            <div class="row">
+                <h3 class="bg-primary fw-light text-white p-4 text-center">Toimunud üritused</h3>
                 <div class="">
                     <dd class="col-sm-12">
                         <br/>
                         <div class="participators">
-                            @foreach (var eventInfo in Model.FutureEvents)
+                            @foreach (var eventInfo in Model.PastEvents)
                             {
                                 <div class="row participator mb-2">
                                     <div class="col">
@@ -43,10 +73,6 @@
                                             </div>
                                             <div class="col-sm-3  participator-code">
                                                 <a href="/EventInfos/Details?id=@eventInfo.Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
-                                                <a href="/EventInfos/Delete?id=@eventInfo.Id" class="text-black-50 text-decoration-none">
-                                                    <img width="24" alt="icon img" src="images/remove.svg"/>
-                                                </a>
-
                                             </div>
                                         </div>
                                     </div>
@@ -56,42 +82,6 @@
                     </dd>
                 </div>
             </div>
-            <div class="d-flex p-2 pb-3">
-                <a href="/EventInfos/Create" class="fw-bold btn btn-link me-4 text-black-50 text-decoration-none">LISA ÜRITUS</a>
-
-            </div>
-        </div>
-
-        <div class="col bg-white mt-3 ms-3 ">
-            <!-- Content for the third square -->
-            <div class="row">
-                            <h3 class="bg-primary fw-light text-white p-4 text-center">Toimunud üritused</h3>
-                            <div class="">
-                                <dd class="col-sm-12">
-                                    <br/>
-                                    <div class="participators">
-                                        @foreach (var eventInfo in Model.PastEvents)
-                                        {
-                                            <div class="row participator mb-2">
-                                                <div class="col">
-                                                    <div class="row">
-                                                        <div class="col-sm-6 participator-name">
-                                                            @eventInfo.EventName
-                                                        </div>
-                                                        <div class="col-sm-3  participator-code">
-                                                            @eventInfo.EventDateTime.Value.ToShortDateString()
-                                                        </div>
-                                                        <div class="col-sm-3  participator-code">
-                                                            <a href="/EventInfos/Details?id=@eventInfo.Id" class="me-2 text-black-50 text-decoration-none">OSAVÕTJAD</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </dd>
-                            </div>
-                        </div>
         </div>
     </div>
 

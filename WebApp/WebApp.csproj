@@ -32,7 +32,6 @@
     <ItemGroup>
       <None Include="wwwroot\images\libled.jpg" />
       <None Include="wwwroot\images\pilt.jpg" />
-      <None Include="wwwroot\libled.jpg" />
     </ItemGroup>
 
 </Project>
