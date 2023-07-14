@@ -53,7 +53,8 @@ public class AddParticipator : PageModel
         {
             return NotFound();
         }
-        else if(EventInfo.EventDateTime < DateTime.Now)
+        
+        if(EventInfo.EventDateTime < DateTime.Now)
         {
             return NotFound();
         }

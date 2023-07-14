@@ -24,17 +24,17 @@ namespace WebApp.Pages.EventInfos
             return Page();
         }
 
-        [BindProperty]
-        public EventInfo EventInfo { get; set; } = default!;
-        
+        [BindProperty] public EventInfo EventInfo { get; set; } = default!;
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.EventInfos == null || EventInfo == null)
+            if (!ModelState.IsValid || _context.EventInfos == null || EventInfo == null)
             {
                 return Page();
             }
+            
 
             _context.EventInfos.Add(EventInfo);
             await _context.SaveChangesAsync();
